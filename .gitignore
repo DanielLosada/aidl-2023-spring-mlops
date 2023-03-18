@@ -1,0 +1,9 @@
+# Ignore data directory
+session-2/data/
+
+# Ignore Python cache directory
+session-2/__pycache__/
+
+# Ignore CSV files
+*.csv
+*.tfrecords
