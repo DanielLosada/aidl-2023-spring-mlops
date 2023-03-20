@@ -12,8 +12,8 @@ class MyModel(nn.Module):
         self.conv3 = ConvBlock(num_inp_channels=6, num_out_fmaps=6, kernel_size=5)
 
         self.mlp = nn.Sequential(
-            LinearBlock(120, 84),
-            LinearBlock(84, 10),
+            LinearBlock(384, 84),
+            nn.Linear(84, 15),
             nn.LogSoftmax(-1),
         )
 
@@ -21,10 +21,8 @@ class MyModel(nn.Module):
         x = self.conv1(x)
         x = self.conv2(x)
         x = self.conv3(x)
-        print("Shape: ", x.shape)
-        bsz, nch, height, width = x.shape
-        x = x.reshape(-1, nch * height * width)
-        #x = x.view(x.size(0), -1)  # flatten the output for the MLP
-        print("Shape after: ", x.shape)
+        #bsz, nch, height, width = x.shape
+        #x = x.reshape(-1, nch * height * width)
+        x = x.view(x.size(0), -1)  # flatten the output for the MLP
         x = self.mlp(x)
         return x
