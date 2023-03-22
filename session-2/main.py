@@ -19,10 +19,12 @@ def train_single_epoch(model, optimizer, criterion, dataloader):
     #num_samples = 0
     num_batch = 0
     for batch_idx, (data, target) in enumerate(dataloader):
+
         data, target = data.to(device), target.to(device)
         optimizer.zero_grad()
 
         output = model(data)
+
         loss = criterion(output, target)
         loss.backward()
         optimizer.step()
@@ -80,7 +82,6 @@ def train_model(config):
 
     my_dataset = MyDataset(images_path='./session-2/data/data', labels_path='./session-2/chinese_mnist.csv', transform=trans)
     my_model = MyModel().to(device)
-
     optimizer = torch.optim.SGD(my_model.parameters(), lr=config["learning_rate"], momentum=config["momentum"])
     criterion = torch.nn.CrossEntropyLoss()
 
@@ -100,8 +101,8 @@ if __name__ == "__main__":
 
     config = {
         "batch_size": 64,
-        "learning_rate": 0.1,
-        "epochs": 5,
+        "learning_rate": 0.01,
+        "epochs": 100,
         "momentum": 0.9
     }
     train_model(config)
