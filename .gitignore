@@ -1,5 +1,6 @@
 # Ignore data directory
 session-2/data/
+session-3/dataset
 
 # Ignore Python cache directory
 session-2/__pycache__/
@@ -7,3 +8,8 @@ session-2/__pycache__/
 # Ignore CSV files
 *.csv
 *.tfrecords
+
+#ignore specific files
+*.jpg
+
+*/__pycache__
