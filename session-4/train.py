@@ -17,8 +17,13 @@ def train(dataloader):
     train_acc = 0
     for text, offsets, label in dataloader:
         # TODO complete the training code. The inputs of the model are text and offsets
-        ...
-
+        text, offsets, label = text.to(device), offsets.to(device), label.to(device)
+        optimizer.zero_grad()
+        output = model(text, offsets)
+        output = torch.sigmoid(output)
+        loss = criterion(output, label)
+        loss.backward()
+        optimizer.step()
         train_loss += loss.item() * len(output)
         train_acc += (output.argmax(1) == label).sum().item()
 
@@ -35,7 +40,10 @@ def test(dataloader: DataLoader):
     acc = 0
     for text, offsets, label in dataloader:
         # TODO complete the evaluation code. The inputs of the model are text and offsets
-        ...
+        text, offsets, label = text.to(device), offsets.to(device), label.to(device)
+        output = model(text, offsets)
+        output = torch.sigmoid(output)
+        loss = criterion(output, label)
 
         loss += loss.item() * len(output)
         acc += (output.argmax(1) == label).sum().item()
@@ -64,7 +72,7 @@ if __name__ == "__main__":
 
     # Load the model
     # TODO load the model
-    model = ...
+    model = SentimentAnalysis(VOCAB_SIZE, EMBED_DIM, NUM_CLASS)
         
     # We will use CrossEntropyLoss even though we are doing binary classification 
     # because the code is ready to also work for many classes
@@ -77,8 +85,10 @@ if __name__ == "__main__":
     # Split train and val datasets
     # TODO split `train_val_dataset` in `train_dataset` and `valid_dataset`. The size of train dataset should be 95%
 
-    train_dataset, valid_dataset = ...
-    
+    train_size = int(0.95 * len(train_val_dataset))
+    valid_size = len(train_val_dataset) - train_size
+    train_dataset, valid_dataset = random_split(train_val_dataset, [train_size, valid_size])
+
     # DataLoader needs an special function to generate the batches. 
     # Since we will have inputs of varying size, we will concatenate 
     # all the inputs in a single vector and create a vector with the "offsets" between inputs.
@@ -108,7 +118,7 @@ if __name__ == "__main__":
     print(f'\tLoss: {test_loss:.4f}(test)\t|\tAcc: {test_acc * 100:.1f}%(test)')
 
     # Now save the artifacts of the training
-    savedir = "app/state_dict.pt"
+    savedir = "session-4/app/state_dict.pt"
     print(f"Saving checkpoint to {savedir}...")
     # We can save everything we will need later in the checkpoint.
     checkpoint = {
