@@ -36,10 +36,12 @@ To run tensorboard, run
 tensorboard --logdir logs
 ```
 
+To see the wandb results go to the website: https://wandb.ai/aidlspring/hands-on-monitoring?workspace=user-daniellm
+
 ## TODO
 1. Get familiarized with the code in main.py and run_reconstruction/classification.py
 2. Start by completing the TODO's in the tensorboard_TODO.py file. Only those required to solve the reconstruction task. 
 3. Make sure that everything desired is logged (scalars, graph, weights, gradients, embeddings and reconstructed images).
 4. Then do the same for the classification task.
 5. Repeat steps 2, 3 and 4, but this time using the WandB framework. The only thing that won't be logged is the graph of the model.
-6. [OPTIONAL] If you have time, try to do something similar to what is done in [this report](https://wandb.ai/juanjo3ns/mnist_colab/reports/MNIST_COLAB--Vmlldzo1MDIxOTE). Feel free to innovate.
+6. [OPTIONAL] If you have time, try to do something similar to what is done in [this report](https://wandb.ai/juanjo3ns/mnist_colab/reports/MNIST_COLAB--Vmlldzo1MDIxOTE?accessToken=tyl6j6yot3es3s1iisam3gzjhaoyoxyml2ini4blvbmyzcny2lb0v32t9xs8rfu6). Feel free to innovate.
