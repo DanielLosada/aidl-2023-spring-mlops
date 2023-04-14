@@ -1,5 +1,8 @@
-.jpg
-
+*.tfrecords
+launch.json
+*.csv
+*.jpg
+*/wandb/*
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
